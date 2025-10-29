@@ -1,0 +1,274 @@
+/* ===== GLOBAL ===== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #eef0f4;
+    font-family: "Segoe UI", sans-serif;
+    overflow: hidden;
+}
+
+/* ===== TOOLBAR ===== */
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1d1f23;
+    color: white;
+    padding: 6px 10px;
+    border-bottom: 2px solid #3b3f45;
+    z-index: 10;
+    flex-wrap: wrap;
+}
+
+.toolbar button,
+.toolbar select {
+    background: #2b2e33;
+    color: white;
+    border: 1px solid #444;
+    margin: 2px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.toolbar button:hover,
+.toolbar select:hover {
+    background: #3b3f45;
+}
+
+#hideToolbarBtn {
+    background: #a81d1d;
+}
+
+/* ===== SHOW TOOLBAR BUTTON ===== */
+.showToolbarBtn {
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    background: #1d1f23;
+    color: white;
+    padding: 6px 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 30;
+}
+
+/* ===== SIDEBAR (PAGE THUMBNAILS) ===== */
+.sidebar {
+    width: 110px;
+    background: #ffffff;
+    border-right: 1px solid #d0d0d0;
+    overflow-y: auto;
+    padding-top: 5px;
+    transition: width 0.25s ease;
+}
+
+.sidebar h3 {
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+    font-size: 14px;
+    background: #f6f6f6;
+    border-bottom: 1px solid #ddd;
+}
+
+#thumbContainer {
+    padding: 5px;
+}
+
+.thumb-item {
+    width: 80px;
+    height: 110px;
+    background: white;
+    border: 1px solid #aaa;
+    margin: 5px auto;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Sidebar collapsed */
+.sidebar.collapsed {
+    width: 0;
+    border-right: none;
+}
+
+.sidebarToggle {
+    position: absolute;
+    left: 115px;
+    top: 48px;
+    background: #1d1f23;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    z-index: 20;
+}
+
+.sidebar.collapsed + .sidebarToggle {
+    left: 5px;
+}
+
+/* ===== EDITOR AREA ===== */
+.editorWrapper {
+    display: flex;
+    height: calc(100vh - 42px);
+    width: 100vw;
+    overflow: hidden;
+}
+
+/* ===== PAGE AREA ===== */
+#pageArea {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 15px;
+    position: relative;
+}
+
+/* Ruler */
+#pageRuler {
+    width: 100%;
+    height: 22px;
+    background: repeating-linear-gradient(
+        to right,
+        #d0d0d0 0px,
+        #d0d0d0 1px,
+        transparent 1px,
+        transparent 25px
+    );
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+/* Actual pages */
+#pagesContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page {
+    background: white;
+    border: 1px solid #bfc2c7;
+    box-shadow: 0 0 6px rgba(0,0,0,0.15);
+    width: 800px;
+    min-height: 1120px;
+    padding: 60px 70px;
+    margin: 25px 0;
+    outline: none;
+    overflow-wrap: break-word;
+    font-size: 16px;
+}
+
+/* Drag resize handle */
+.page:after {
+    content: "";
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    width: 10px;
+    height: 60px;
+    cursor: ew-resize;
+}
+
+/* Add Page Button */
+.addPageBtn {
+    background: #1d8f3e;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+/* ===== MODALS ===== */
+.modal {
+    position: fixed;
+    left: 0; right: 0; top: 0; bottom: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 40;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 6px;
+    padding: 25px;
+    width: 300px;
+}
+
+.modal .modal-close {
+    background: #b51f1f;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    margin-top: 8px;
+}
+
+/* ===== FONT SETTINGS PANEL ===== */
+.panel {
+    position: fixed;
+    right: 10px;
+    top: 65px;
+    width: 260px;
+    padding: 15px;
+    background: #ffffff;
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    z-index: 50;
+}
+
+.panel input {
+    width: 100%;
+    margin: 4px 0 10px 0;
+}
+
+/* Hidden generic utility */
+.hidden {
+    display: none !important;
+}
+
+/* ===== MOBILE FRIENDLY ===== */
+@media (max-width: 900px) {
+    .page {
+        width: 95vw;
+        padding: 30px;
+    }
+    .sidebar {
+        width: 70px;
+    }
+    #thumbContainer .thumb-item {
+        width: 50px;
+        height: 70px;
+    }
+    .sidebarToggle {
+        left: 75px;
+    }
+}
+
+@media (max-width: 600px) {
+    .toolbar {
+        justify-content: center;
+    }
+    .sidebar {
+        display: none;
+    }
+    #pageRuler {
+        display: none;
+    }
+}
