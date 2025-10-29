@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Karen Writer — Knyawfonts</title>
+
+  <!-- styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- libs used by app.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="https://unpkg.com/html-docx-js@0.4.1/dist/html-docx.js"></script>
+</head>
+<body>
+  <header class="toolbar" id="toolbar">
+    <div class="toolbar-left">
+      <select id="fontSelect" title="Font"></select>
+      <select id="fontSizeSelect" title="Font size"></select>
+
+      <button data-cmd="bold" class="tool-btn">B</button>
+      <button data-cmd="italic" class="tool-btn">I</button>
+
+      <div class="underline-menu">
+        <button id="underlineBtn" class="tool-btn">U ▾</button>
+        <div id="underlineStyles" class="underline-dropdown hidden">
+          <button data-uline="solid">Solid</button>
+          <button data-uline="double">Double</button>
+          <button data-uline="dotted">Dotted</button>
+          <button data-uline="dashed">Dashed</button>
+          <button data-uline="wavy">Wavy</button>
+        </div>
+      </div>
+
+      <button id="bulletBtn" class="tool-btn">• List</button>
+      <button id="numBtn" class="tool-btn">1. List</button>
+
+      <button id="indentBtn" class="tool-btn">→</button>
+      <button id="outdentBtn" class="tool-btn">←</button>
+
+      <button id="cutBtn" class="tool-btn">Cut</button>
+      <button id="copyBtn" class="tool-btn">Copy</button>
+      <button id="pasteBtn" class="tool-btn">Paste</button>
+
+      <button id="undoBtn" class="tool-btn">Undo</button>
+      <button id="redoBtn" class="tool-btn">Redo</button>
+    </div>
+
+    <div class="toolbar-right">
+      <button id="fontSettingsBtn" class="tool-btn">Font settings</button>
+      <button id="pageSetupBtn" class="tool-btn">Page setup</button>
+      <button id="exportBtn" class="tool-btn primary">Export</button>
+      <button id="hideToolbarBtn" class="tool-btn">Hide</button>
+    </div>
+  </header>
+
+  <button id="showToolbarBtn" class="floating hidden">Show tools</button>
+
+  <main class="editorShell">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">KW</div>
+        <div class="title">Pages</div>
+      </div>
+      <div id="thumbContainer" class="thumbs"></div>
+      <div class="sidebar-footer">
+        <button id="addPageBtn" class="small">+ Add</button>
+        <button id="dupPageBtn" class="small">Duplicate</button>
+        <button id="delPageBtn" class="small">Delete</button>
+      </div>
+    </aside>
+
+    <section class="pageArea">
+      <div id="pageRuler" class="pageRuler"></div>
+      <div id="pagesContainer" class="pagesContainer"></div>
+      <div class="pageControls">
+        <label>Paper:
+          <select id="paperSizeSelect">
+            <option value="A4">A4</option>
+            <option value="Letter">Letter</option>
+            <option value="Legal">Legal</option>
+            <option value="A3">A3</option>
+            <option value="A5">A5</option>
+            <option value="Custom">Custom</option>
+          </select>
+        </label>
+        <label>Orientation:
+          <select id="paperOrientation">
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Landscape</option>
+          </select>
+        </label>
+      </div>
+    </section>
+  </main>
+
+  <!-- Font Settings Panel -->
+  <aside id="fontSettingsPanel" class="panel hidden">
+    <h3>Font settings</h3>
+    <label>Line height <input id="lineHeightInput" type="number" step="0.1" value="1.25"></label>
+    <label>Letter spacing (px) <input id="letterSpacingInput" type="number" step="0.1" value="0"></label>
+    <label>Text shadow <input id="textShadowToggle" type="checkbox"></label>
+    <div style="margin-top:8px">
+      <button id="applyFontSettings" class="small primary">Apply</button>
+      <button id="closeFontSettings" class="small">Close</button>
+    </div>
+  </aside>
+
+  <!-- Export Modal -->
+  <div id="exportModal" class="modal hidden">
+    <div class="modalWindow">
+      <h3>Export</h3>
+      <div class="modalRow">
+        <button id="exportPdfBtn" class="primary">PDF (all pages)</button>
+        <button id="exportPngZipBtn">PNG (zip)</button>
+      </div>
+      <div class="modalRow">
+        <button id="exportPngBtn">PNG (current)</button>
+        <button id="exportJpgBtn">JPEG (current)</button>
+      </div>
+      <div class="modalRow">
+        <button id="exportDocxBtn">DOCX</button>
+        <button id="flattenBtn">Flatten/Cleanup</button>
+      </div>
+      <div class="modalRow">
+        <button class="small" id="closeExport">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- small inline helpful styles for demo of keyboard area (optional) -->
+  <script src="app.js"></script>
+</body>
+</html>
