@@ -2,7 +2,7 @@
 // Loads only .woff and .woff2 from https://github.com/karenliteracy/Knyawfonts (repo root)
 // Features: multi-page, thumbnails, drag reorder, drag-resize, ruler, undo/redo, formatting, flatten, export
 
-const GITHUB_CONFIG = { owner: 'karenliteracy', repo: 'Knyawfonts', path: '' };
+const GITHUB_CONFIG = { owner: 'karenliteracy', repo: 'Knyawfonts', path: 'https://github.com/karenliteracy/Knyawfonts/blob/main/' };
 const FONT_EXT_RE = /\.(woff2?|woff)$/i;
 const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/main${GITHUB_CONFIG.path ? '/' + GITHUB_CONFIG.path : ''}`;
 
